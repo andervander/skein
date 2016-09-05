@@ -1,0 +1,85 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+.container {
+  width: 570px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.sk-input {
+  width: 100%;
+  margin: 20px 0;
+  outline: none;
+  height: 30px;
+  padding: 0 30px 0 5px;
+  border: 1px solid #000;
+}
+
+.hash-block {
+  padding: 10px;
+  border: 1px solid #000;
+  width: 100%;
+  font-size: 0;
+
+  .row {
+    margin: 0 -10px -10px;
+  }
+
+  .col {
+    font-size: 14px;
+    display: inline-block;
+    width: 25%;
+    padding: 0 10px 10px;
+    vertical-align: top;
+  }
+
+  .hash-item {
+    background-color: #e2e2e2;
+    position: relative;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 0 20px 0 10px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+
+    & > a {
+      position: absolute;
+      right: 3px;
+      top: 3px;
+      transition: color .2s ease;
+
+      &:hover {
+        color: #F9006F;
+      }
+    }
+  }
+}
+
+.btn {
+  position: relative;
+  outline: none;
+  border: 1px solid #000;
+  width: 100px;
+  background-color: #e2e2e2;
+  border-radius: 5px;
+
+  .glyphicon {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+  }
+}
+
+.save-block {
+  margin-top: 20px;
+  text-align: right;
+}

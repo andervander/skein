@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="skein">
+<head>
+    <meta charset="UTF-8">
+    <title>Skein Test</title>
+
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body ng-controller="appController">
+
+    <div class="container">
+        <input type="text" class="sk-input" placeholder="Hashtag">
+
+        <div class="hash-block">
+            <div class="row">
+                <div class="col">
+                    <div class="hash-item">
+                        <span>entropy</span>
+                        <a href class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="save-block">
+            <button type="button" class="btn" ng-click="getTw()">
+                <span>Save</span>
+                <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+
+    <script src="/vendor/oauth-js/dist/oauth.js"></script>
+    <script src="/vendor/angular/angular.js"></script>
+    <script src="/vendor/angular-resource/angular-resource.js"></script>
+    <!--<script src="/vendor/angular-cookies/angular-cookies.js"></script>-->
+    <!--<script src="/vendor/query-string/query-string.js"></script>-->
+    <!--<script src="/vendor/angular-oauth2/dist/angular-oauth2.min.js"></script>-->
+    <script src="/vendor/angular-sanitize/angular-sanitize.js"></script>
+
+    <script src="/scripts/vendor/App42-all-3.1.min.js"></script>
+
+    <script src="/scripts/app42.js"></script>
+    <script src="/scripts/app.module.js"></script>
+    <script src="/scripts/services/api.service.js"></script>
+</body>
+</html>

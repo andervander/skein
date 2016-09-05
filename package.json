@@ -1,0 +1,24 @@
+{
+  "name": "skein-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrii",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "1.7.9",
+    "express": "4.14.0",
+    "http-server": "0.9.0",
+    "twitter": "1.4.0"
+  },
+  "dependencies": {
+    "browser-sync": "2.14.3",
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "3.1.1",
+    "gulp-sass": "2.3.2",
+    "gulp-sourcemaps": "1.6.0"
+  }
+}

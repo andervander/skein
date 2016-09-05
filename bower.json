@@ -1,0 +1,27 @@
+{
+  "name": "skein-test",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Andrii"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.8",
+    "angular-resource": "1.5.8",
+    "bootstrap-sass": "3.3.7",
+    "ng-twitter-api": "0.1.5",
+    "angular-sanitize": "1.5.8",
+    "oauth-js": "oauthio-web#0.5.2",
+    "angular-oauth2": "4.0.0"
+  }
+}
