@@ -17,11 +17,7 @@
   ],
   "dependencies": {
     "angular": "1.5.8",
-    "angular-resource": "1.5.8",
     "bootstrap-sass": "3.3.7",
-    "ng-twitter-api": "0.1.5",
-    "angular-sanitize": "1.5.8",
-    "oauth-js": "oauthio-web#0.5.2",
-    "angular-oauth2": "4.0.0"
+    "oauth-js": "0.5.2"
   }
 }

@@ -6,42 +6,50 @@
 
     <link rel="stylesheet" href="styles/main.css">
 </head>
-<body ng-controller="appController">
+<body ng-controller="appController" ng-cloak ng-class="{'user-signed': userSigned}">
+
+    <div class="sign-in-block">
+        <button type="button" class="btn" ng-click="signIn()">
+            <span>Sign In</span>
+        </button>
+    </div>
 
     <div class="container">
-        <input type="text" class="sk-input" placeholder="Hashtag">
+        <div class="dropdown-block">
+            <input type="text" class="sk-input" placeholder="Hashtag" ng-model="user.input" ng-model-options="{debounce: 250}" ng-change="searchHashtags()">
+            <ul class="dropdown" ng-show="hashtags.length">
+                <li ng-repeat="hashtag in hashtags track by $index" ng-click="setHashtag(hashtag)">
+                    <a href>{{hashtag}}</a>
+                </li>
+            </ul>
+        </div>
 
         <div class="hash-block">
             <div class="row">
-                <div class="col">
+                <div class="col" ng-repeat="hashtag in userHashtags track by $index">
                     <div class="hash-item">
-                        <span>entropy</span>
-                        <a href class="glyphicon glyphicon-remove" aria-hidden="true"></a>
+                        <span>{{hashtag}}</span>
+                        <a href class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeHashtag(hashtag)"></a>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="save-block">
-            <button type="button" class="btn" ng-click="getTw()">
+            <button type="button" class="btn" ng-click="saveHashtags()">
                 <span>Save</span>
                 <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
             </button>
         </div>
     </div>
 
-    <script src="/vendor/oauth-js/dist/oauth.js"></script>
     <script src="/vendor/angular/angular.js"></script>
-    <script src="/vendor/angular-resource/angular-resource.js"></script>
-    <!--<script src="/vendor/angular-cookies/angular-cookies.js"></script>-->
-    <!--<script src="/vendor/query-string/query-string.js"></script>-->
-    <!--<script src="/vendor/angular-oauth2/dist/angular-oauth2.min.js"></script>-->
-    <script src="/vendor/angular-sanitize/angular-sanitize.js"></script>
+    <script src="/vendor/oauth-js/dist/oauth.min.js"></script>
 
     <script src="/scripts/vendor/App42-all-3.1.min.js"></script>
 
     <script src="/scripts/app42.js"></script>
     <script src="/scripts/app.module.js"></script>
-    <script src="/scripts/services/api.service.js"></script>
+    <script src="/scripts/services/twitter.service.js"></script>
 </body>
 </html>
