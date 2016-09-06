@@ -1,6 +1,5 @@
-vendor
+/vendor
 node_modules
 .idea
 dist
 *.css
-app.views.js

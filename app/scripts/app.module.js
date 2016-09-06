@@ -32,7 +32,9 @@
             }
 
             Twitter.getHashtags($scope.user.input).then(function (res) {
-                var reg = new RegExp('^'+$scope.user.input, 'i');
+                var ar = $scope.user.input.split(' ');
+                var regValue = ar.join('|');
+                var reg = new RegExp('^'+regValue, 'i');
 
                 angular.forEach(res.statuses, function (value) {
                     angular.forEach(value.entities.hashtags, function (value) {
