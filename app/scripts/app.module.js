@@ -8,18 +8,24 @@
         Twitter.init();
 
         if ($window.localStorage.oauthio_cache && $window.localStorage.oauthio_provider_twitter) {
-            $rootScope.userSigned = true;
+            Twitter.getUserInfo().then(function (res) {
+                $rootScope.userId = res.id_str;
+                $rootScope.userSigned = true;
+            });
         }
     }])
 
-    .controller('appController', ['$scope', 'Twitter', function ($scope, Twitter) {
+    .controller('appController', ['$scope', 'Twitter', 'Api', function ($scope, Twitter, Api) {
 
         $scope.user = {};
         $scope.userHashtags = [];
 
         $scope.signIn = function () {
             Twitter.connectTwitter().then(function () {
-                $scope.userSigned = true;
+                Twitter.getUserInfo().then(function (res) {
+                    $scope.userId = res.id_str;
+                    $scope.userSigned = true;
+                });
             });
         };
 
@@ -66,8 +72,24 @@
             $scope.userHashtags.splice($scope.userHashtags.indexOf(hashtag), 1);
         };
 
+        var docId;
         $scope.saveHashtags = function () {
-            console.log($scope.userHashtags);
+            // console.log($scope.userHashtags);
+            if (docId) {
+
+                Api.updateHashtags($scope.userId, docId, $scope.userHashtags).then(function (res) {
+                    console.log(res);
+                });
+                return;
+            }
+
+            Api.saveHashtags($scope.userId, $scope.userHashtags).then(function (res) {
+                docId = res.jsonDoc._id.$oid;
+            })
+        };
+
+        $scope.loadHashtags = function () {
+
         };
         
 

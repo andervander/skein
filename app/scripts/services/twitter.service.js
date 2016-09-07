@@ -30,6 +30,19 @@
                 OAuth.clearCache('twitter');
                 authorizationResult = false;
             },
+            getUserInfo: function () {
+                var deferred = $q.defer();
+
+                var url = '/1.1/account/verify_credentials.json?include_email=true&include_entities=false';
+
+                authorizationResult.get(url).done(function (data) {
+                    deferred.resolve(data);
+                }).fail(function (err) {
+                    deferred.reject(err);
+                });
+
+                return deferred.promise;
+            },
             getHashtags: function (s) {
                 var deferred = $q.defer();
                 var ar = s.split(" ");
