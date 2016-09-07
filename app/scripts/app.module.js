@@ -27,6 +27,7 @@
             var hashtags = [];
 
             if (!$scope.user.input) {
+                $scope.noResults = false;
                 $scope.hashtags = [];
                 return;
             }
@@ -48,6 +49,8 @@
                 });
 
                 $scope.hashtags = hashtags;
+
+                $scope.noResults = !$scope.hashtags.length;
             })
         };
         
