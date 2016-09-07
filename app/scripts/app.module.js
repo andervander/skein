@@ -4,30 +4,37 @@
 
     angular.module('skein', [])
 
-    .run(['$rootScope', '$window', 'Twitter', function ($rootScope, $window, Twitter) {
+    .run(['$rootScope', '$window', 'Twitter', 'Api', '$timeout', function ($rootScope, $window, Twitter, Api, $timeout) {
         Twitter.init();
 
-        if ($window.localStorage.oauthio_cache && $window.localStorage.oauthio_provider_twitter) {
+        $rootScope.userHashtags = [];
+
+        function authentication() {
             Twitter.getUserInfo().then(function (res) {
                 $rootScope.userId = res.id_str;
                 $rootScope.userSigned = true;
+
+                Api.findDocument($rootScope.userId).then(function (res) {
+                    $rootScope.userHashtags = res.arr;
+                    $rootScope.docId = res.docId;
+                });
             });
+        }
+
+        $rootScope.signIn = function () {
+            Twitter.connectTwitter().then(function () {
+                authentication();
+            });
+        };
+
+        if ($window.localStorage.oauthio_cache && $window.localStorage.oauthio_provider_twitter) {
+            authentication();
         }
     }])
 
     .controller('appController', ['$scope', 'Twitter', 'Api', function ($scope, Twitter, Api) {
 
         $scope.user = {};
-        $scope.userHashtags = [];
-
-        $scope.signIn = function () {
-            Twitter.connectTwitter().then(function () {
-                Twitter.getUserInfo().then(function (res) {
-                    $scope.userId = res.id_str;
-                    $scope.userSigned = true;
-                });
-            });
-        };
 
         $scope.searchHashtags = function () {
             var hashtags = [];
@@ -72,24 +79,18 @@
             $scope.userHashtags.splice($scope.userHashtags.indexOf(hashtag), 1);
         };
 
-        var docId;
         $scope.saveHashtags = function () {
-            // console.log($scope.userHashtags);
-            if (docId) {
+            if ($scope.docId) {
 
-                Api.updateHashtags($scope.userId, docId, $scope.userHashtags).then(function (res) {
+                Api.updateHashtags($scope.userId, $scope.docId, $scope.userHashtags).then(function (res) {
                     console.log(res);
                 });
                 return;
             }
 
             Api.saveHashtags($scope.userId, $scope.userHashtags).then(function (res) {
-                docId = res.jsonDoc._id.$oid;
+                $scope.docId = res.jsonDoc._id.$oid;
             })
-        };
-
-        $scope.loadHashtags = function () {
-
         };
         
 

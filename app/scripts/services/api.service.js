@@ -54,26 +54,22 @@
                 return deferred.promise;
             },
 
-            findAllDocuments: function (userId) {
+            findDocument: function (userId) {
                 var deferred = $q.defer(), response;
 
                 storageService.findAllDocuments(dbName, userId, {
                     success: function(object) {
                         var storageObj = JSON.parse(object);
-                        console.log(storageObj);
-                        response = storageObj.app42.response.storage.jsonDoc;
-                        deferred.resolve(response);
-                        if(response.length == undefined) {
-                            console.log(response._id.$oid)
-                            console.log(response._$createdAt)
-                            console.log(response._$updatedAt)
+                        response = storageObj.app42.response.storage.jsonDoc[0];
+                        var arr = [];
+
+                        for (var key in response) {
+                            if (isFinite(+key)) {
+                                arr.push(response[key]);
+                            }
                         }
-                        for(var i=0;i<response.length;i++) {
-                            console.log(response[i])
-                            console.log(response[i]._id.$oid)
-                            console.log(response[i]._$createdAt)
-                            console.log(response[i]._$updatedAt)
-                        }
+
+                        deferred.resolve({arr: arr, docId: response._id.$oid});
                     },
                     error: function(error) {
                         deferred.reject(error);
