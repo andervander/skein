@@ -26,6 +26,10 @@
                 });
                 return deferred.promise;
             },
+            clearCache: function () {
+                OAuth.clearCache('twitter');
+                authorizationResult = false;
+            },
             getUserInfo: function () {
                 var deferred = $q.defer();
 

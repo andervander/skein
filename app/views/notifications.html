@@ -1,0 +1,7 @@
+<div class="notification" ng-class="notification.type" ng-repeat="notification in notifications">
+    <span class="sign">{{notification.type === 'saved' ? 'Hashtags Saved' : 'Something Went Wrong'}}</span>
+
+    <a href class="close-icon" ng-click="close($index);">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </a>
+</div>

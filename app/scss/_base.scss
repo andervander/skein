@@ -78,13 +78,36 @@ body {
       padding: 10px 10px 10px 25px;
     }
   }
+
+  .loader {
+    display: inline-block;
+    border: 2px solid #000;
+    border-right-color: #F9006F;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    animation: loading .4s linear infinite;
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .sk-input {
   width: 100%;
   outline: none;
   height: 30px;
-  padding: 0 30px 0 5px;
+  padding: 0 30px 0 25px;
   border: 1px solid #000;
 }
 
@@ -149,5 +172,9 @@ body {
 
 .save-block {
   margin-top: 20px;
-  text-align: right;
+  overflow: hidden;
+
+  .btn:last-of-type {
+    float: right;
+  }
 }

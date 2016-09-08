@@ -1,0 +1,44 @@
+.notifications {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  right: 0;
+  padding-right: 21px;
+  overflow: hidden;
+  transform: translateY(20px);
+
+  .notification {
+    position: relative;
+    width: 235px;
+    height: 60px;
+    padding: 15px 26px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    margin-bottom: 15px;
+    animation: fade-in .4s ease-in;
+
+    &.saved {
+      background-color: #CFFDE1;
+    }
+
+    &.error {
+      background-color: #FFDBEB;
+    }
+  }
+
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}

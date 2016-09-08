@@ -4,7 +4,7 @@
 
     angular.module('skein', [])
 
-    .run(['$rootScope', '$window', 'Twitter', 'Api', function ($rootScope, $window, Twitter, Api) {
+    .run(['$rootScope', '$window', 'Twitter', 'Api', 'Notifications', function ($rootScope, $window, Twitter, Api, Notifications) {
         Twitter.init();
 
         $rootScope.userHashtags = [];
@@ -23,16 +23,16 @@
                         if ($rootScope.userHashtags.join(',') !== res.arr.join(',')) {
                             Api.updateHashtags($rootScope.userId, $rootScope.docId, $rootScope.userHashtags).then(function (res) {
                             }, function (err) {
-                                console.log(err);
+                                Notifications.notify({type: 'error'});
                             })
                         }
                     } else {
                         $rootScope.userHashtags = res.arr;
                     }
-                }, function (err) {
-
                 });
 
+            }, function (err) {
+                Notifications.notify({type: 'error'});
             });
         }
 
@@ -42,21 +42,28 @@
             });
         };
 
+        $rootScope.signOut = function () {
+            Twitter.clearCache();
+            $rootScope.userSigned = false;
+        };
+
         if ($window.localStorage.oauthio_cache && $window.localStorage.oauthio_provider_twitter) {
             $rootScope.userSigned = true;
             authentication();
         }
     }])
 
-    .controller('appController', ['$scope', 'Twitter', 'Api', '$window', function ($scope, Twitter, Api, $window) {
+    .controller('appController', ['$scope', 'Twitter', 'Api', '$window', 'Notifications', function ($scope, Twitter, Api, $window, Notifications) {
 
         $scope.user = {};
 
         $scope.searchHashtags = function () {
             var hashtags = [];
+            $scope.loading = true;
 
             if (!$scope.user.input) {
                 $scope.noResults = false;
+                $scope.loading = false;
                 $scope.hashtags = [];
                 return;
             }
@@ -80,6 +87,7 @@
                 $scope.hashtags = hashtags;
 
                 $scope.noResults = !$scope.hashtags.length;
+                $scope.loading = false;
             })
         };
         
@@ -100,18 +108,19 @@
 
             if ($scope.docId) {
 
-                Api.updateHashtags($scope.userId, $scope.docId, $scope.userHashtags).then(function (res) {
-                    console.log(res);
+                Api.updateHashtags($scope.userId, $scope.docId, $scope.userHashtags).then(function () {
+                    Notifications.notify({type: 'saved'});
                 }, function (err) {
-                    console.log(err);
+                    Notifications.notify({type: 'error'});
                 });
                 return;
             }
 
             Api.saveHashtags($scope.userId, $scope.userHashtags).then(function (res) {
                 $scope.docId = res.jsonDoc._id.$oid;
+                Notifications.notify({type: 'saved'});
             }, function (err) {
-                console.log(err);
+                Notifications.notify({type: 'error'});
             })
         };
         

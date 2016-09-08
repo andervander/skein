@@ -16,6 +16,7 @@
 
     <div class="container">
         <div class="dropdown-block">
+            <span class="loader" ng-show="loading"></span>
             <input type="text" class="sk-input" placeholder="Hashtag" ng-model="user.input" ng-model-options="{debounce: 250}" ng-change="searchHashtags()">
             <ul class="dropdown" ng-show="hashtags.length">
                 <li ng-repeat="hashtag in hashtags track by $index" ng-click="setHashtag(hashtag)">
@@ -39,6 +40,7 @@
         </div>
 
         <div class="save-block">
+            <button type="button" class="btn" ng-click="signOut()">Sign Out</button>
             <button type="button" class="btn" ng-click="saveHashtags()">
                 <span>Save</span>
                 <span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
@@ -46,12 +48,15 @@
         </div>
     </div>
 
+    <div class="notifications" notifications></div>
+
     <script src="/vendor/angular/angular.js"></script>
     <script src="/vendor/oauth-js/dist/oauth.min.js"></script>
 
     <script src="/scripts/vendor/App42-all-3.1.min.js"></script>
 
     <script src="/scripts/app.module.js"></script>
+    <script src="/scripts/directives/notifications.directive.js"></script>
     <script src="/scripts/services/twitter.service.js"></script>
     <script src="/scripts/services/api.service.js"></script>
 </body>
