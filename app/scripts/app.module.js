@@ -45,6 +45,7 @@
         $rootScope.signOut = function () {
             Twitter.clearCache();
             $rootScope.userSigned = false;
+            delete $window.localStorage.hashtags;
         };
 
         if ($window.localStorage.oauthio_cache && $window.localStorage.oauthio_provider_twitter) {
